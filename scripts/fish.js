@@ -34,9 +34,9 @@ class Fish {
    contains(mx, my) {
       // All we have to do is make sure the Mouse X,Y fall in the area between
       // the shape's X and (X + Width) and its Y and (Y + Height)
-      console.log(`Mouse: ${mx}, ${my}`);
-      console.log(`This x and y: ${this.x}, ${this.y}`);
-      console.log(`This w and h: ${this.w}, ${this.h}`);
+      // console.log(`Mouse: ${mx}, ${my}`);
+      // console.log(`This x and y: ${this.x}, ${this.y}`);
+      // console.log(`This w and h: ${this.w}, ${this.h}`);
       
       return (this.x <= mx) && (this.x + this.w >= mx) &&
          (this.y <= my) && (this.y + this.h >= my);

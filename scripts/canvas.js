@@ -59,7 +59,7 @@ class CanvasState {
          const fishes = myState.fishes;
          for (let i = fishes.length - 1; i >= 0; i--) {
             if (fishes[i].contains(mx, my)) {
-               console.log("Clicked insied the fish");
+               console.log("Clicked inside the fish");
 
                const mySel = fishes[i];
                // Keep track of where in the object we clicked
@@ -94,9 +94,18 @@ class CanvasState {
       }, true);
       // double click for making new shapes
       canvas.addEventListener('dblclick', function (e) {
-         var mouse = myState.getMouse(e);
-         myState.addFish(new Fish(mouse.x - 10, mouse.y - 10, 1));
+         console.log("adding a new fish");
+
+         const mouse = myState.getMouse(e);
+         myState.addFish(new Fish(mouse.x, mouse.y, 1));
       }, true);
+
+      this.selectionColor = '#CC0000';
+      this.selectionWidth = 2;
+      this.interval = 15; // 60 fps
+      setInterval(function () {
+         myState.draw();
+      }, myState.interval);
    }
 
    setWidthAndHeight() {
@@ -109,6 +118,12 @@ class CanvasState {
       this.valid = false;
    }
 
+   clear() {
+      console.log(this.canvas.width + " " + this.canvas.height);
+      
+      this.ctx.clearRect(0, 0, this.width, this.height);
+   }
+
    draw() {
       // if our state is invalid, redraw and validate!
       if (!this.valid) {
@@ -117,16 +132,16 @@ class CanvasState {
          this.clear();
 
          // ** Add stuff you want drawn in the background all the time here **
-
+         
          // draw all shapes
-         for (var i = 0; i < fishes.length; i++) {
-            console.log("Drawing all the fishes");
-            
-            var shape = fishes[i];
+         for (let i = 0; i < fishes.length; i++) {
+            console.log("Drawing " + fishes.length + " fishes");
+
+            const shape = fishes[i];
             // We can skip the drawing of elements that have moved off the screen:
             if (shape.x > this.width || shape.y > this.height ||
                shape.x + shape.w < 0 || shape.y + shape.h < 0) continue;
-            fishes[i].drawFish(this.ctx, color);
+            fishes[i].drawFish(this.ctx);
          }
 
          // draw selection
